@@ -95,7 +95,14 @@ watch(isOpen, (value) => {
 })
 
 const handleSubmit = async () => {
-    await axios.post('/admin/item-categories', { ...form });
-    isOpen.value = false
+    await axios.post('/admin/item-categories', { ...form }).then(res => {
+        console.log('Item Category created successfully:', res.data);
+        // if (res.status === 200) {
+        //     isOpen.value = false;
+        // }
+    }).catch(error => {
+        console.error('There was an error creating the Item Category:', error);
+    });
+
 }
 </script>
