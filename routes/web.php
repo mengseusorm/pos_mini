@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ItemCategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -15,11 +16,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     });
-    Route::get('item-categories', function () {
-        return Inertia::render('admin/itemCategory/itemCategory');
+
+    Route::prefix('item-categories')->name('item-categories.')->group(function () {
+        Route::get('/', [ItemCategoryController::class, 'index'])->name('index');
+        Route::post('/', [ItemCategoryController::class, 'store'])->name('store');
     });
 });
-
 
 
 require __DIR__.'/settings.php';

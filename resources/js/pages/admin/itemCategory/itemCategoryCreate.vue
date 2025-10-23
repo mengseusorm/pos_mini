@@ -73,7 +73,7 @@ import { Label } from "@/components/ui/label"
 import { PlusCircle } from "lucide-vue-next"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
+import axios  from "axios";
 const [UseTemplate, GridForm] = createReusableTemplate()
 const isDesktop = useMediaQuery("(min-width: 768px)")
 const isOpen = ref(false)
@@ -94,8 +94,8 @@ watch(isOpen, (value) => {
   if (!value) reset()
 })
 
-const handleSubmit = () => {
-  console.log("Form submitted:", { ...form })
-  isOpen.value = false
+const handleSubmit = async () => {
+    await axios.post('/admin/item-categories', { ...form });
+    isOpen.value = false
 }
 </script>
